@@ -1,0 +1,18 @@
+{
+  "name": "pyrightenv",
+  "version": "1.0.0",
+  "description": "Environment for Pyright",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "pyright": "^1.1.98"
+  },
+  "scripts": {
+    "pyright": "pyright --version && pyright --outputjson"
+  },
+  "author": "quwac <53551867+quwac@users.noreply.github.com>",
+  "license": "ISC"
+}

@@ -1,0 +1,34 @@
+{
+    "[python]": {
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+        },
+        "editor.insertSpaces": true,
+        "editor.tabSize": 4
+    },
+    "cSpell.ignoreRegExpList": [],
+    "cSpell.words": [
+        "noqa",
+        "pyannotate",
+        "pytest"
+    ],
+    "files.eol": "\n",
+    "python.envFile": "${workspaceFolder}/.env",
+    "python.formatting.autopep8Path": "${workspaceFolder}/.venv/bin/autopep8",
+    "python.formatting.provider": "autopep8",
+    "python.linting.enabled": true,
+    "python.linting.flake8Enabled": true,
+    "python.linting.mypyEnabled": false,
+    "python.linting.pylintEnabled": false,
+    "python.pythonPath": "${workspaceFolder}/.venv/bin/python3.6",
+    "python.sortImports.path": "${workspaceFolder}/.venv/bin/isort",
+    "terminal.integrated.env.linux": {
+        "PYTHONPATH": "${workspaceFolder}/src:${workspaceFolder}/tests"
+    },
+    "terminal.integrated.env.osx": {
+        "PYTHONPATH": "${workspaceFolder}/src:${workspaceFolder}/tests"
+    },
+    "terminal.integrated.env.windows": {
+        "PYTHONPATH": "${workspaceFolder}/src;${workspaceFolder}/tests"
+    }
+}
