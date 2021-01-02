@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "firebase-storage-utils"
+name = "cloud-storage-for-firebase-utils"
 version = "0.1.0"
-description = "Python utility for Firebase Storage (Google Cloud Storage)."
+description = "Python utility for Cloud Storage for Firebase."
 authors = ["quwac <53551867+quwac@users.noreply.github.com>"]
 
 [tool.poetry.dependencies]

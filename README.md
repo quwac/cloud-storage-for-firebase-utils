@@ -1,6 +1,6 @@
-# firebase-storage-utils
+# cloud-storage-for-firebase-utils
 
-Python utility for Firebase Storage (Google Cloud Storage).
+Python utility for Cloud Storage for Firebase.
 
 ## License
 

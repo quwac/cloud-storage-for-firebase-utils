@@ -5,6 +5,7 @@
 usage_exit() {
     echo "Usage: $0 [-o] [-d] [-s PYTHON_FILE_OR_DIR_PATH]" 1>&2
     echo ""
+    echo "-c                        : Enable to CI mode."
     echo "-o                        : Output LINT results to file."
     echo "-d                        : Disable to create stub file."
     echo "-s PYTHON_FILE_OR_DIR_PATH: Lint target file or directory path. Default value is ./src"
@@ -12,12 +13,16 @@ usage_exit() {
     exit 1
 }
 
+ci_mode=0
 disable_createstub=0
 output_to_file=0
 target_file_or_dir='./src'
 target_test_file_or_dir='./tests'
-while getopts dost:h OPT; do
+while getopts cdost:h OPT; do
     case $OPT in
+    c)
+        ci_mode=1
+        ;;
     d)
         disable_createstub=1
         ;;
@@ -61,10 +66,10 @@ fi
 
 : nop &&
     # ---------- Maintain modules
-    poetry run python script/pythonpath_maintainer.py "$target_file_or_dir" &&
+    poetry run python scripts/pythonpath_maintainer.py "$target_file_or_dir" &&
 
     # ---------- Format JSON files
-    poetry run python script/json_formatter.py .vscode/settings.json \
+    poetry run python scripts/json_formatter.py .vscode/settings.json \
         --as_set_paths '["/cSpell.ignoreRegExpList","/cSpell.words"]' \
         >.vscode/settings.json.tmp &&
     rm -rf .vscode/settings.json &&
@@ -81,6 +86,16 @@ fi
     # To format python code.
     poetry run black "$target_file_or_dir" &&
     poetry run black "$target_test_file_or_dir" &&
+    if [ $ci_mode == 1 ]; then
+        if [ -z "$(git status --porcelain)" ]; then
+            # Working directory clean
+            nop
+        else
+            # Uncommitted changes
+            echo Formatter is not applied.
+            exit 1
+        fi
+    fi &&
 
     # ---------- Lint python files
     if [ -e 'lint_result' ]; then
@@ -88,22 +103,30 @@ fi
     fi &&
     mkdir lint_result &&
     if [ $output_to_file == 1 ]; then
+        # pyright
         if type "node_modules/.bin/pyright" >/dev/null 2>&1; then
             npm run pyright >"lint_result/pyright.json"
         fi
+        # flake8
         poetry run flake8 --config .flake8 --output-file lint_result/flake8.log "$target_file_or_dir"
     else
         if type "node_modules/.bin/pyright" >/dev/null 2>&1; then
+            # pyright
             npm run pyright | tail -n +6 >".pyright_result.json"
-            poetry run python ./script/pyright_result_formatter.py --pyright_result_json ".pyright_result.json"
+            poetry run python ./scripts/pyright_result_formatter.py --pyright_result_json ".pyright_result.json"
             if [ -e ".pyright_result.json" ]; then
                 rm -rf ".pyright_result.json"
             fi
         fi
+        # flake8
         poetry run flake8 --config .flake8 "$target_file_or_dir"
     fi &&
 
     # ---------- Test python files
-    poetry run pytest
+    if [ $ci_mode == 1 ]; then
+        poetry run pytest --cov=src --cov-branch --cov-report=xml
+    else
+        poetry run pytest
+    fi
 
 popd || exit 1

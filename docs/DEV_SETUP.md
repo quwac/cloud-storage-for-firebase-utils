@@ -11,4 +11,4 @@
 6. Install [nodenv](https://github.com/nodenv/nodenv) by anyenv
 7. Install [Poetry](https://github.com/python-poetry/poetry)
 8. git-clone this repository
-9. Run `bash script/setup.sh`
+9. Run `bash scripts/setup.sh`
