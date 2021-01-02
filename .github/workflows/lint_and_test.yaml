@@ -1,0 +1,61 @@
+name: lint & test
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - develop
+jobs:
+  pytest:
+    name: Run tests with pytest
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.6]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install Poetry
+        run: |
+          curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
+          echo "$HOME/.poetry/bin" >> $GITHUB_PATH
+      - name: Setup Node.js (for pyright)
+        uses: actions/setup-node@v1
+        with:
+          node-version: "13"
+      - name: Install Dependencies
+        run: |
+          poetry install --no-interaction
+          npm install
+      - name: Create .test_args.yaml
+        id: create_dot_test_args_yaml
+        uses: timheuer/base64-to-file@v1.0.4
+        with:
+          fileName: .test_args.yaml
+          encodedString: ${{ secrets.DOT_TEST_ARGS_YAML_BASE64 }}
+      - name: Create service_account.json
+        id: create_service_acount_json
+        uses: timheuer/base64-to-file@v1.0.4
+        with:
+          fileName: service_account.json
+          encodedString: ${{ secrets.SERVICE_ACCOUNT_JSON_BASE64 }}
+      - name: Move files
+        env:
+          DOT: ${{ steps.create_dot_test_args_yaml.outputs.filePath }}
+          SA: ${{ steps.create_service_acount_json.outputs.filePath }}
+        run: |
+          mv "$DOT" "$GITHUB_WORKSPACE"
+          mv "$SA" "$GITHUB_WORKSPACE"
+      - name: Run Lint & Tests
+        run: bash ./lint.sh -c
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          file: ./coverage.xml
+          name: codecov-umbrella
+          fail_ci_if_error: true

@@ -133,3 +133,7 @@ node_modules
 
 # lint_result
 lint_result/
+
+# secret files
+.test_args.yaml
+service_account.json

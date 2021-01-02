@@ -87,10 +87,7 @@ fi
     poetry run black "$target_file_or_dir" &&
     poetry run black "$target_test_file_or_dir" &&
     if [ $ci_mode == 1 ]; then
-        if [ -z "$(git status --porcelain)" ]; then
-            # Working directory clean
-            nop
-        else
+        if [ -n "$(git status --porcelain)" ]; then
             # Uncommitted changes
             echo Formatter is not applied.
             exit 1
@@ -124,9 +121,9 @@ fi
 
     # ---------- Test python files
     if [ $ci_mode == 1 ]; then
-        poetry run pytest --cov=src --cov-branch --cov-report=xml
+        PYTHONPATH=$target_file_or_dir:$target_test_file_or_dir poetry run pytest --cov=src --cov-branch --cov-report=xml
     else
-        poetry run pytest
+        PYTHONPATH=$target_file_or_dir:$target_test_file_or_dir poetry run pytest
     fi
 
 popd || exit 1
