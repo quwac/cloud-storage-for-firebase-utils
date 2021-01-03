@@ -120,10 +120,6 @@ fi
     fi &&
 
     # ---------- Test python files
-    if [ $ci_mode == 1 ]; then
-        PYTHONPATH=$target_file_or_dir:$target_test_file_or_dir poetry run pytest --cov=src --cov-branch --cov-report=xml
-    else
-        PYTHONPATH=$target_file_or_dir:$target_test_file_or_dir poetry run pytest
-    fi
+    PYTHONPATH=$target_file_or_dir:$target_test_file_or_dir poetry run pytest
 
 popd || exit 1

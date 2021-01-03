@@ -44,4 +44,4 @@ line-length = 99
 
 [tool.pytest.ini_options]
 minversion = "6.0"
-addopts = "-v --cov=src --cov-branch --cov-report=html:lint_result/pytest"
+addopts = "-v --cov=src --cov-branch --cov-report=html:lint_result/pytest --cov-report=xml"
