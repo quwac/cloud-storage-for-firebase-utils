@@ -1,8 +1,9 @@
 # cloud-storage-for-firebase-utils
 
-Python utility for Cloud Storage for Firebase.
+[![PyPI version](https://badge.fury.io/py/csfutils.svg)](https://badge.fury.io/py/csfutils) [![Python Versions](https://img.shields.io/pypi/pyversions/csfutils.svg)](https://pypi.org/project/csfutils/)
+![lint & test](https://github.com/quwac/cloud-storage-for-firebase-utils/workflows/lint%20&%20test/badge.svg) [![codecov](https://codecov.io/gh/quwac/cloud-storage-for-firebase-utils/branch/main/graph/badge.svg)](https://codecov.io/gh/quwac/cloud-storage-for-firebase-utils)
 
-[![codecov](https://codecov.io/gh/quwac/cloud-storage-for-firebase-utils/branch/main/graph/badge.svg)](https://codecov.io/gh/quwac/cloud-storage-for-firebase-utils)
+Python utility for Cloud Storage for Firebase.
 
 ## What is This?
 
@@ -16,7 +17,7 @@ Unfortunately [google-cloud-storage](https://pypi.org/project/google-cloud-stora
 
 But by using **cloud-storage-for-firebase-utils** you can easily achieve them👍.
 
-# Requirements
+## Requirements
 
 * Python >= 3.6
 * [google-cloud-storage](https://pypi.org/project/google-cloud-storage/) >= 1.35.0
