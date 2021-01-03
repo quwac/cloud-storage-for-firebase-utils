@@ -7,12 +7,12 @@ on:
     branches:
       - develop
 jobs:
-  pytest:
-    name: Run tests with pytest
+  lint_and_test:
+    name: Run lint & test
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.6, 3.7, 3.8, 3.9]
+        python-version: [3.6]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
