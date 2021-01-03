@@ -1,7 +1,7 @@
 [tool.poetry]
 
 name = "csfutils"
-version = "0.1.1"
+version = "0.1.2"
 description = "Python utility for Cloud Storage for Firebase."
 authors = ["quwac <53551867+quwac@users.noreply.github.com>"]
 repository = "https://github.com/quwac/cloud-storage-for-firebase-utils"

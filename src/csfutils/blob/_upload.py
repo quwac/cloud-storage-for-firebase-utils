@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Any, Optional, Tuple, Union
+from typing import BinaryIO, Optional, Tuple, Union
 from urllib.parse import quote
 
 from google.cloud.storage import Blob, Client
@@ -50,7 +50,7 @@ def upload_from_filename_for_firebase(
 
 def upload_from_file_for_firebase(
     blob: Blob,
-    file_obj: Any,
+    file_obj: BinaryIO,
     access_token: Optional[str] = None,
     url_type: UrlType = UrlType.FIREBASE_URL,
     rewind: bool = False,
