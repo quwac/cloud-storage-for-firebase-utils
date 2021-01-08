@@ -116,6 +116,17 @@ gs_path = csfutils.get_gs_path(blob)
 print(f"gs_path={gs_path}")
 # --> gs_path=gs://example-project.appspot.com/images/stars⭐.jpg
 
+# BONUS 5: Generate access token on a local machine
+# =================================================
+access_token = csfutils.generate_access_token()
+print(f"access_token={access_token}")
+# --> access_token=736da983-4853-4f55-a763-14e9cf1eb4c5
+
+# BONUS 6: Estimate download URL
+# ==============================
+estimated_ffirestorage_url = csfutils.estimate_download_url(bucket_name, path, access_token)
+# --> firestorage_url=https://firebasestorage.googleapis.com/v0/b/example-project.appspot.com/o/images%2Fstars%E2%9C%A7.jpg?alt=media&token=f7d0815d-96f8-4907-b22c-70ad9e38d7ff
+
 ```
 
 ## License
