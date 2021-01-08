@@ -109,7 +109,7 @@ class Client(ClientWithProject):
         """
         ...
 
-    def bucket(self, bucket_name, user_project=...):
+    def bucket(self, bucket_name: str, user_project: str = ...) -> Bucket:
         """Factory constructor for bucket object.
 
         .. note::
