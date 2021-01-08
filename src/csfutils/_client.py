@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 import re
 from typing import Match, Optional, Tuple, Union, cast
@@ -34,9 +35,17 @@ _HTTPS_PATTERNS = [
 
 
 def init_storage(service_account_key_json_path: Union[str, Path]) -> Client:
+    if isinstance(service_account_key_json_path, Path):
+        file_path = str(service_account_key_json_path.absolute())
+    else:
+        file_path = service_account_key_json_path
+
+    if not os.path.exists(file_path):
+        raise InvalidArgument(f"{file_path} not found.")
+
     return cast(
         Client,
-        Client.from_service_account_json(service_account_key_json_path),  # type: ignore
+        Client.from_service_account_json(file_path),  # type: ignore
     )
 
 

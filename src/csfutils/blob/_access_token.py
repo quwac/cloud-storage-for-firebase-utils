@@ -81,6 +81,10 @@ def delete_access_token(
         )
 
 
+def generate_access_token() -> str:
+    return str(uuid.uuid4())
+
+
 # ---------- private ----------
 
 
@@ -100,7 +104,7 @@ def add_access_token_impl(
     client: Optional[Client],
 ) -> str:
     if access_token is None:
-        access_token = _generate_access_token()
+        access_token = generate_access_token()
     validate_access_token(access_token)
 
     server_blob = get_blob_from_server(blob, True, client)
@@ -143,10 +147,6 @@ def _get_access_tokens(blob: Blob) -> List[str]:
 
     assert len(tokens) > 0
     return tokens
-
-
-def _generate_access_token() -> str:
-    return str(uuid.uuid4())
 
 
 def _merge_metadata(

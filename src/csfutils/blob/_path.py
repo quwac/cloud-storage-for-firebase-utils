@@ -38,6 +38,25 @@ def get_download_url(
         raise ValueError("Logic error.")
 
 
+def estimate_download_url(
+    bucket_name: str,
+    path: str,
+    access_tokens: Union[str, List[str]],
+    url_type: UrlType = UrlType.FIREBASE_URL,
+) -> Union[str, List[str]]:
+    if type(access_tokens) is str:
+        return _get_download_url(url_type, bucket_name, path, access_tokens)
+    elif isinstance(access_tokens, list):
+        return list(
+            map(
+                lambda access_token: _get_download_url(url_type, bucket_name, path, access_token),
+                access_tokens,
+            )
+        )
+
+    raise ValueError("Logic error.")
+
+
 def get_gs_path(blob: Blob) -> str:
     bucket_name, path = parse_url(blob.public_url)
 
