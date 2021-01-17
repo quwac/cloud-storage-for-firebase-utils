@@ -8,7 +8,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "pyright": "^1.1.98"
+    "pyright": "^1.1.101"
   },
   "scripts": {
     "pyright": "pyright --version && pyright --outputjson"
