@@ -21,7 +21,7 @@ jobs:
       - name: Setup Node.js (for pyright)
         uses: actions/setup-node@v1
         with:
-          node-version: "13"
+          node-version: "12"
       - name: Install Dependencies
         run: |
           poetry install --no-interaction

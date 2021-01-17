@@ -1,0 +1,62 @@
+{
+    "build": {
+        "args": {},
+        "context": "..",
+        "dockerfile": "Dockerfile"
+    },
+    "extensions": [
+        "bungcip.better-toml",
+        "bungcip.better-toml",
+        "coenraads.bracket-pair-colorizer",
+        "donjayamanne.python-extension-pack",
+        "esbenp.prettier-vscode",
+        "fabiospampinato.vscode-diff",
+        "foxundermoon.shell-format",
+        "himanoa.Python-autopep8",
+        "ms-azuretools.vscode-docker",
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "redhat.vscode-yaml",
+        "streetsidesoftware.code-spell-checker",
+        "timonwong.shellcheck",
+        "yzhang.markdown-all-in-one"
+    ],
+    "forwardPorts": [
+        9000
+    ],
+    "name": "csfutil",
+    "postCreateCommand": "pip install --upgrade pip; poetry install; npm install",
+    "remoteUser": "vscode",
+    "settings": {
+        "[python]": {
+            "editor.codeActionsOnSave": {
+                "source.organizeImports": true
+            },
+            "editor.insertSpaces": true,
+            "editor.tabSize": 4
+        },
+        "cSpell.ignoreRegExpList": [],
+        "cSpell.words": [
+            "noqa",
+            "pyannotate",
+            "pytest"
+        ],
+        "files.eol": "\n",
+        "python.envFile": "${workspaceFolder}/.env",
+        "python.formatting.autopep8Path": "/usr/local/py-utils/bin/autopep8",
+        "python.formatting.blackPath": "/usr/local/py-utils/bin/black",
+        "python.formatting.provider": "autopep8",
+        "python.linting.enabled": true,
+        "python.linting.flake8Enabled": true,
+        "python.linting.flake8Path": "/usr/local/py-utils/bin/flake8",
+        "python.linting.mypyEnabled": false,
+        "python.linting.mypyPath": "/usr/local/py-utils/bin/mypy",
+        "python.linting.pylintEnabled": false,
+        "python.pythonPath": "/usr/local/bin/python",
+        "python.sortImports.path": "/usr/local/py-utils/bin/isort",
+        "terminal.integrated.env.linux": {
+            "PYTHONPATH": "${workspaceFolder}/src:${workspaceFolder}/tests:$PYTHONPATH"
+        },
+        "terminal.integrated.shell.linux": "/bin/bash"
+    }
+}

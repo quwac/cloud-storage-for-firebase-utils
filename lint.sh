@@ -69,11 +69,11 @@ fi
     poetry run python scripts/pythonpath_maintainer.py "$target_file_or_dir" &&
 
     # ---------- Format JSON files
-    poetry run python scripts/json_formatter.py .vscode/settings.json \
-        --as_set_paths '["/cSpell.ignoreRegExpList","/cSpell.words"]' \
-        >.vscode/settings.json.tmp &&
-    rm -rf .vscode/settings.json &&
-    mv .vscode/settings.json.tmp .vscode/settings.json &&
+    poetry run python scripts/json_formatter.py .devcontainer/devcontainer.json \
+        --as_set_paths '["/extensions","/settings/cSpell.ignoreRegExpList","/settings/cSpell.words"]' \
+        --output_file_path .devcontainer/devcontainer.json.tmp &&
+    rm -rf .devcontainer/devcontainer.json &&
+    mv .devcontainer/devcontainer.json.tmp .devcontainer/devcontainer.json &&
 
     # ---------- Format Python files
 
